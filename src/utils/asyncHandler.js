@@ -1,0 +1,3 @@
+const asnycHandler = () => {};
+
+export { asnycHandler };
