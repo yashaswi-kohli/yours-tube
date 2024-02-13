@@ -9,15 +9,16 @@ dotenv.config({
   path: "./.env",
 });
 
-connectDB();
-// .then(() => {
-//   app.listen(process.env.PORT || 8000, () => {
-//     console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
-//   });
-// })
-// .catch((err) => {
-//   console.log("MONGO db connection failed !!! ", err);
-// });
+//* this will return a promise so we will check on it
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+      console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("MONGO db connection failed !!! ", err);
+  });
 
 /* //? this is not a bad way, but we only want to clean the code so we will write the same thing in
 ?      in seperate db folder and the call the function will make the code clean that's it
