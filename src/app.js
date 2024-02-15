@@ -29,4 +29,16 @@ app.use(express.static("public"));
 //* we want to basically have access to perform CRUD operation on cookies of user browser from server
 app.use(cookieParser());
 
+
+//Todo  -------------------------------------------------------------------------------------------
+
+
+//! now we will do routing
+//? import route
+import userRouter from "./routes/user.routes.js";
+
+//? routing
+app.use("/users", userRouter)
+//* the url path will look like http://localhost:8000/users/register
+
 export { app };

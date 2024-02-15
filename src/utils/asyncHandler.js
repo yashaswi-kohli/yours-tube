@@ -2,20 +2,24 @@
 
 //* Then Catch(Resolve, Reject)
 
-const asnycHandler = (requestHandler) => {
-  Promise.resolve(requestHandler(req, res, next)).reject((err) => next(err));
+const asyncHandler = (requestHandler) => {
+  return (req, res, next) => {
+      Promise
+       .resolve(requestHandler(req, res, next))
+       .reject((err) => next(err));
+  }
 };
 
-export { asnycHandler };
+export { asyncHandler };
 
 //* Try Catch
 
-// const asnycHandler = () => async {};
-// const asnycHandler = (func) => async {};
-// const asnycHandler = (func) => async { () => {} };
-// const asnycHandler = (func) => async () => {}
+// const asyncHandler = () => async {};
+// const asyncHandler = (func) => async {};
+// const asyncHandler = (func) => async { () => {} };
+// const asyncHandler = (func) => async () => {}
 
-//  const asnycHandler = (func) => async () => {
+//  const asyncHandler = (func) => async () => {
 //   try {
 //     await func(req, res, next);
 //   } catch (error) {
