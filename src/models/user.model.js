@@ -58,7 +58,7 @@ const userSchema = new Schema(
 
 userSchema.pre("save", async function (next) {
     if (this.isModified("password")) {
-        this.password = bcypt.hash(this.password, 10);
+        this.password = await bcypt.hash(this.password, 10);
     }
 
     //* now we have completed our work, so lets return to next task or middleware & for that we will use next
