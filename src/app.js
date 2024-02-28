@@ -18,8 +18,9 @@ app.use(
   })
 );
 
-//* Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing
+//* First thing it tells use to accept json. 
 app.use(express.json({ limit: "16kb" }));
+//? Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing
 
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 
