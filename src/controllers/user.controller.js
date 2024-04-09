@@ -7,7 +7,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js"
 import mongoose from "mongoose";
 
-const generateAccessAndRefereshTokens = async(userId) =>{
+const generateAccessAndRefereshTokens = async(userId) => {
     try {
         const user = await User.findById(userId)
         const accessToken = user.generateAccessToken()
@@ -24,7 +24,7 @@ const generateAccessAndRefereshTokens = async(userId) =>{
     }
 }
 
-const registerUser = asyncHandler( async (req, res) => {
+const registerUser = asyncHandler(async(req, res) => {
 
     // get user details from frontend
     // validation - not empty
@@ -107,7 +107,7 @@ const registerUser = asyncHandler( async (req, res) => {
     )
 })
 
-const loginUser = asyncHandler( async (req, res) => {
+const loginUser = asyncHandler(async(req, res) => {
     // 1. get user details from frontend()
     // 2. validation - not empty
     // 3. check if user exists by email or username
@@ -158,7 +158,7 @@ const loginUser = asyncHandler( async (req, res) => {
     )
 })
 
-const logoutUser = asyncHandler( async (req, res) => {
+const logoutUser = asyncHandler(async(req, res) => {
     //* first we have to clear cookies(which contain access and refresh token)
     //* from database we have to clear our refresh token also
 
@@ -184,7 +184,7 @@ const logoutUser = asyncHandler( async (req, res) => {
     
 })
 
-const refereshAccessToken = asyncHandler( async (req, res) => {
+const refereshAccessToken = asyncHandler(async(req, res) => {
     const currentRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
 
     if(!currentRefreshToken) {
@@ -222,7 +222,7 @@ const refereshAccessToken = asyncHandler( async (req, res) => {
     }
 })
 
-const changePassword = asyncHandler( async (req, res) => {
+const changePassword = asyncHandler(async(req, res) => {
     const {oldPassword, newPassword} = req.body
 
     const user = await User.findById(req.user?._id);
@@ -240,7 +240,7 @@ const changePassword = asyncHandler( async (req, res) => {
     .json(new ApiResponse(200, {}, "Password changed successfully"))
 })
 
-const getCurrentUser = asyncHandler( async (req, res) => {
+const getCurrentUser = asyncHandler(async(req, res) => {
     return res
     .status(200)
     .json(new ApiResponse(
@@ -336,7 +336,7 @@ const updateUserCoverImage = asyncHandler(async(req, res) => {
     )
 })
 
-const getChannelDetails = asyncHandler(async (req, res) => {
+const getChannelDetails = asyncHandler(async(req, res) => {
     const {username} = req.params
 
     if (!username?.trim()) {
@@ -351,10 +351,10 @@ const getChannelDetails = asyncHandler(async (req, res) => {
         },
         {
             $lookup: {
-                from: "subscriptions",
-                localField: "_id",
-                foreignField: "channel",
-                as: "subscribers"
+                from: "subscriptions",  //? The collection to join with
+                localField: "_id",      //* Field from the current collection (User) to match
+                foreignField: "channel",//* Field from the 'subscriptions' collection to match
+                as: "subscribers"       //? Alias for the joined data
             },
         },
         {
@@ -410,7 +410,7 @@ const getChannelDetails = asyncHandler(async (req, res) => {
     ));
 })
 
-const getWatchHistory = asyncHandler(async (req, res) => {
+const getWatchHistory = asyncHandler(async(req, res) => {
     const user = await User.aggregate([
         {
             match: {
@@ -474,4 +474,4 @@ export {
     refereshAccessToken,
     updateUserCoverImage,
     updateAccountDetails,
-};
+}

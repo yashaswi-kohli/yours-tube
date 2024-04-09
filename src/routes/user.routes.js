@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middleware.js";
-import { verifyJWT } from "../middlewares/auth.middlewares.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { changePassword, getCurrentUser, getWatchHistory, loginUser, logoutUser, refereshAccessToken, registerUser, updateAccountDetails, updateUserAvatar, updateUserCoverImage } from "../controllers/user.controller.js";
+import { publishAVideo } from "../controllers/video.controller.js";
 
 const router = Router();
 
@@ -17,8 +18,21 @@ router.route("/register").post(
             maxCount: 1,
         }
     ]),
-    
     registerUser
+);
+
+router.route("/publishVideo").post(
+    upload.fields([
+        {
+            name: "video",
+            maxCount: 1,
+        },
+        {
+            name: "thumbnail",
+            maxCount: 1,
+        },
+    ]),
+    publishAVideo
 );
 
 router.route("/login").post(loginUser);
@@ -33,6 +47,7 @@ router.route("/cover-image").patch(verifyJWT, upload.single("coverImage"), updat
 
 router.route("/c/:username").get(verifyJWT, getCurrentUser)
 router.route("/history").get(verifyJWT, getWatchHistory)
+
 
 
 export default router;
