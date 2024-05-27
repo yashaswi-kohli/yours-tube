@@ -31,15 +31,26 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 
-//Todo  -------------------------------------------------------------------------------------------
-
-
-//! now we will do routing
 //? import route
 import userRouter from "./routes/user.routes.js";
+import videoRoutes from "./routes/video.route.js";
+import tweetRoutes from "./routes/tweet.route.js";
+import subscriptionRoutes from "./routes/subscription.route.js";
+import commentRoutes from "./routes/comment.route.js";
+import likeRoutes from "./routes/like.route.js";
+import playListRoutes from "./routes/playlist.route.js";
+import dashboardRoutes from "./routes/dashboard.route.js";
 
-//? routing
-app.use("/users", userRouter)
+// User routes:
+app.use("/api/v1/users", userRoutes);
 //* the url path will look like http://localhost:8000/users/register
+
+app.use("/api/v1/video", videoRoutes);
+app.use("/api/v1/tweet", tweetRoutes);
+app.use("/api/v1/subscription", subscriptionRoutes);
+app.use("/api/v1/comment", commentRoutes);
+app.use("/api/v1/like", likeRoutes);
+app.use("/api/v1/playlist", playListRoutes);
+app.use("/api/v1/dashboard", dashboardRoutes);
 
 export { app };
